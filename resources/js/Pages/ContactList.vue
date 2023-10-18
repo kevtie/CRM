@@ -17,7 +17,12 @@ defineProps({
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Client List</h2>
         </template>
-        <div class="flex">
+        <div class="flex col-auto text-gray-200">
+            <div class="col-3 my-2 mx-4">Name</div>
+            <div class="col-3 my-2 mx-4"></div>
+            <div class="col-3 my-2 mx-4"></div>
+            <div class="col-3 my-2 mx-4"></div>
+            <div class="col-3 my-2 mx-4"></div>
             <div v-for="client in clients" :key="client.id" class="flex col-auto text-gray-200">
                 <div class="col-3 my-2 mx-4">{{ client.name }}</div>
                 <div class="col-3 my-2 mx-4">{{ client.email }}</div>
