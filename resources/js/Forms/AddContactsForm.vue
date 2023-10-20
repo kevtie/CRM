@@ -16,7 +16,7 @@ function handleClientRadioChange(radioValue){
 
 <template>
     <div class="z-10 w-48 bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600">
-        <div class="font-semibold dark:text-gray-200">Add Client or Business</div>
+        <div class="font-semibold text-center dark:text-gray-200">Add Client or Business</div>
         <form :action="route('addClient')" method="post">
             <input type="text" name="varName" placeholder="Name*" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
             <input type="email" name="varEmail" placeholder="Email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
