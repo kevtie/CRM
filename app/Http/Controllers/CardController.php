@@ -43,8 +43,6 @@ class CardController extends Controller
         }else{
             return back()->withErrors('Deadline has to be on or after' . date('Y-m-d'));
         }
-        
-        
     }
 
     public function addUserToCard(Request $request){

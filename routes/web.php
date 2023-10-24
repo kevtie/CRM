@@ -46,7 +46,7 @@ Route::middleware(['auth', 'activity.check'])->group(function () {
             Route::post('scrumboard/{scrumId}/addcard', [CardController::class, 'addCardToBoard'])->name('addCard');
             Route::post('/scrumboard/{scrumId}/change', [CardController::class, 'changeCategory'])->name('changeCat');
             Route::post('/scrumboard/{scrumId}/delete', [CardController::class, 'deleteCard'])->name('delCard');
-            Route::post('/clients/add', [ClientController::class, 'addClientOrBusiness'])->name('addClient');
+            Route::post('/clients/addclient', [ClientController::class, 'addClientOrBusiness'])->name('addClient');
         });
     });
 });

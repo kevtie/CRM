@@ -12,8 +12,6 @@ class ClientController extends Controller
 {
     public function getAllClients(){
         $clients = Client::with('business')->get();
-        // $clients = Business::with('client')->get();
-        // dd($clients);
         return Inertia::render('ContactList', [
             'clients' => $clients,
             'businesses' => Business::get(),
@@ -21,7 +19,9 @@ class ClientController extends Controller
     }
 
     public function addClientOrBusiness(Request $request){
+        dd($request);
         if(Str::contains($request->varEmail, ['@', '.']) || $request->varEmail === null){
+            dd($request);
             if($request->clientRadio === 'client'){
                 Client::create([
                     'name' => $request->varName,
@@ -40,11 +40,10 @@ class ClientController extends Controller
             }else{
                 return back()->withErrors('Something went wrong!');
             }
+            return back();
         }else{
             return back()->withErrors('Email was not inserted correctly!');
         }
-        
-        
         return back();
     }
 
