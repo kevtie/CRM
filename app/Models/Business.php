@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Business extends Model
 {
     use HasFactory;
+    protected $guarded = ['id'];
 
     public function Client(){
         return $this->hasMany(Client::class);

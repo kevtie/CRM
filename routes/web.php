@@ -39,6 +39,7 @@ Route::middleware(['auth', 'activity.check'])->group(function () {
     Route::get('/scrumboard', [PageController::class, 'scrumboard'])->name('scrumboard');
     Route::get('/clients', [ClientController::class, 'getAllClients'])->name('getClients');
     Route::post('/clients/sorted', [ClientController::class, 'sortClients'])->name('sorted');
+    Route::post('/clients/addclient', [ClientController::class, 'addClientOrBusiness'])->name('addClient');
     Route::middleware(['check.assigned'])->group(function () {
         Route::get('/scrumboard/{scrumId}', [CardController::class, 'getCards'])->name('getCards');
         Route::post('/scrumboard/{scrumId}/adduser', [CardController::class, 'AddUserToCard'])->name('addUser');
@@ -46,7 +47,6 @@ Route::middleware(['auth', 'activity.check'])->group(function () {
             Route::post('scrumboard/{scrumId}/addcard', [CardController::class, 'addCardToBoard'])->name('addCard');
             Route::post('/scrumboard/{scrumId}/change', [CardController::class, 'changeCategory'])->name('changeCat');
             Route::post('/scrumboard/{scrumId}/delete', [CardController::class, 'deleteCard'])->name('delCard');
-            Route::post('/clients/addclient', [ClientController::class, 'addClientOrBusiness'])->name('addClient');
         });
     });
 });

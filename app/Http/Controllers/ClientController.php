@@ -7,6 +7,7 @@ use App\Models\Client;
 use App\Models\Business;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class ClientController extends Controller
 {
@@ -19,18 +20,22 @@ class ClientController extends Controller
     }
 
     public function addClientOrBusiness(Request $request){
-        dd($request);
-        if(Str::contains($request->varEmail, ['@', '.']) || $request->varEmail === null){
-            dd($request);
+        // dd($request->businessRadio);
+        $request->validate([
+            'varName' => 'required|string',
+            'varEmail' => 'Email|nullable',
+            'varTel' => 'Integer|nullable',
+            'varAddress' => 'required|string',
+        ]);
             if($request->clientRadio === 'client'){
                 Client::create([
                     'name' => $request->varName,
                     'email' => $request->varEmail ?? null,
                     'tel_number' => $request->varTel ?? null,
                     'address' => $request->varAddress,
-                    'business_id' => $request->varBusiness ?? null,
+                    'business_id' => $request->businessRadio ?? null,
                 ]);
-            }elseif($request->BusinessRadio === 'business'){
+            }elseif($request->clientRadio === 'business'){
                 Business::create([
                     'name' => $request->varName,
                     'email' => $request->varEmail ?? null,
@@ -41,10 +46,6 @@ class ClientController extends Controller
                 return back()->withErrors('Something went wrong!');
             }
             return back();
-        }else{
-            return back()->withErrors('Email was not inserted correctly!');
-        }
-        return back();
     }
 
     public function sortClients(Request $request){

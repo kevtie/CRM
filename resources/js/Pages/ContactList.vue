@@ -47,7 +47,9 @@ function toggle(d, d2) {
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Client List</h2>
         </template>
-        <button @click="toggle('list', 'list2')">Toggle List</button>
+        <button @click="toggle('list', 'list2')" class="bg-indigo-900 rounded my-2 p-3 text-gray-200 hover:bg-indigo-800 focus:outline-none focus:ring focus:ring-indigo-200">
+            Toggle List
+        </button>
         <div id="list" style="display: block;">
             <ClientList :clients="clients" />
         </div>
@@ -55,7 +57,7 @@ function toggle(d, d2) {
             <BusinessList :businesses="businesses" />
         </div>
         
-        <div class="flex py-12">
+        <div class="flex py-12 ">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                     <AddForm :businesses="businesses" />
