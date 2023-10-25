@@ -27,32 +27,37 @@ class ClientController extends Controller
             'varTel' => 'Integer|nullable',
             'varAddress' => 'required|string',
         ]);
-            if($request->clientRadio === 'client'){
-                Client::create([
-                    'name' => $request->varName,
-                    'email' => $request->varEmail ?? null,
-                    'tel_number' => $request->varTel ?? null,
-                    'address' => $request->varAddress,
-                    'business_id' => $request->businessRadio ?? null,
-                ]);
-            }elseif($request->clientRadio === 'business'){
-                Business::create([
-                    'name' => $request->varName,
-                    'email' => $request->varEmail ?? null,
-                    'tel_number' => $request->varTel ?? null,
-                    'address' => $request->varAddress,
-                ]);
-            }else{
-                return back()->withErrors('Something went wrong!');
-            }
-            return back();
+        if($request->clientRadio === 'client'){
+            Client::create([
+                'name' => $request->varName,
+                'email' => $request->varEmail ?? null,
+                'tel_number' => $request->varTel ?? null,
+                'address' => $request->varAddress,
+                'business_id' => $request->businessRadio ?? null,
+            ]);
+        }elseif($request->clientRadio === 'business'){
+            Business::create([
+                'name' => $request->varName,
+                'email' => $request->varEmail ?? null,
+                'tel_number' => $request->varTel ?? null,
+                'address' => $request->varAddress,
+            ]);
+        }else{
+            return back()->withErrors('Something went wrong!');
+        }
+        return back();
     }
 
     public function sortClients(Request $request){
-        $list = Client::with('business');
-        $sortedList = $list->orderBy($request->sortName, $request->sortType)->get();
-        Inertia::render('sorted', [
-            'list' => $sortedList,
+        $request->validate([
+            'sortClientName' => 'required|string',
+            'sortType' => 'required|string',
+        ]);
+        $sortedClientList = Client::with('business')->orderBy($request->sortClientName, $request->sortType)->get();
+        $sortedBusinessList = Business::orderBy($request->sortClientName, $request->sortType)->get();
+        return Inertia::render('ContactList', [
+            'clients' => $sortedClientList,
+            'businesses' => $sortedBusinessList,
         ]);
     }
 }

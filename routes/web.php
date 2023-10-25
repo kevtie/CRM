@@ -39,7 +39,8 @@ Route::middleware(['auth', 'activity.check'])->group(function () {
     Route::get('/scrumboard', [PageController::class, 'scrumboard'])->name('scrumboard');
     Route::get('/clients', [ClientController::class, 'getAllClients'])->name('getClients');
     Route::post('/clients/sorted', [ClientController::class, 'sortClients'])->name('sorted');
-    Route::post('/clients/addclient', [ClientController::class, 'addClientOrBusiness'])->name('addClient');
+    Route::post('/clients/addclient', [ClientController::class, 'addClientOrBusiness'])->middleware('update.activity')->name('addClient');
+    Route::any('/clients/sortByName', [ClientController::class, 'sortClients'])->name('sortClient');
     Route::middleware(['check.assigned'])->group(function () {
         Route::get('/scrumboard/{scrumId}', [CardController::class, 'getCards'])->name('getCards');
         Route::post('/scrumboard/{scrumId}/adduser', [CardController::class, 'AddUserToCard'])->name('addUser');
