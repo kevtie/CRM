@@ -5,22 +5,24 @@ namespace App\Http\Controllers;
 use Inertia\Inertia;
 use App\Models\Client;
 use App\Models\Business;
-use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 
 class ClientController extends Controller
 {
-    public function getAllClients(){
-        $clients = Client::with('business')->get();
+    public function getAllClients(Request $request){
+        $clients = Client::with('business')->when($request->term, function($query, $term){
+            $query->where('name', 'LIKE', '%'.$term.'%');
+        })->get();
+        $business = Business::when($request->term, function($query, $term){
+            $query->where('name', 'LIKE', '%'.$term.'%');
+        })->get();
         return Inertia::render('ContactList', [
             'clients' => $clients,
-            'businesses' => Business::get(),
+            'businesses' => $business,
         ]);
     }
 
     public function addClientOrBusiness(Request $request){
-        // dd($request->businessRadio);
         $request->validate([
             'varName' => 'required|string',
             'varEmail' => 'Email|nullable',
