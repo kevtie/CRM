@@ -62,4 +62,14 @@ class ClientController extends Controller
             'businesses' => $sortedBusinessList,
         ]);
     }
+
+    public function deleteClientOrBusiness(Request $request){
+        if($request->contact === 'Client'){
+            Client::find($request->id)->delete();
+        }elseif($request->contact === 'business'){
+            Client::where('business_id', $request->id)->update(['business_id' => null]);
+            Business::find($request->id)->delete();
+        }
+        return back();
+    }
 }
