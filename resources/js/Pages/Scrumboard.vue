@@ -1,5 +1,6 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
+import scrumboardForm from '@/Forms/AddScrumBoardForm.vue';
 import CardForm from '@/Forms/CardForm.vue';
 import UpdateForm from '@/Forms/UpdateCardForm.vue';
 import AssignUserForm from '@/Forms/AssignUserForm.vue';
@@ -10,6 +11,8 @@ defineProps({
     categories: Object,
     scrumId: String,
     assignedUsers: Object,
+    currentUser: Number,
+    clients: Object,
 });
 
 const props = usePage().props;
@@ -48,9 +51,12 @@ function toggle(d) {
         <div class="flex">
             
             <div class="">
-                <div class="my-3" v-for="scrumboard in scrumboards" :key="scrumboard.id">
+                <div class="my-6" v-for="scrumboard in scrumboards" :key="scrumboard.id">
                     <a :href="route('getCards', {scrumId: scrumboard.id})" class="rounded-full my-3 dark:text-gray-200 leading-tight bg-indigo-950 p-3">{{ scrumboard.name }}</a>
                 </div>
+            </div>
+            <div v-if="currentUser === 1">
+                <scrumboardForm :clients="clients"/>
             </div>
             <div v-if="exist = true" class="flex col-8">
                 <div class="rounded p-3 dark:text-gray-200" v-for="category in categories" :key="category.id">

@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Card;
 use App\Models\User;
 use Inertia\Inertia;
 use App\Models\Scrumboard;
 use App\Models\CardCategory;
 use Illuminate\Http\Request;
-use Carbon\Carbon;
 
 class CardController extends Controller
 {
