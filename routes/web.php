@@ -55,5 +55,5 @@ Route::middleware(['auth', 'activity.check'])->group(function () {
         });
     });
 });
-
+ 
 require __DIR__.'/auth.php';
