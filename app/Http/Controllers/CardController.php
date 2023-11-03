@@ -33,7 +33,6 @@ class CardController extends Controller
             'scrumId' => $request->scrumId,
             'scrumboards' => $scrum,
             'assignedUsers' => $assignedUsers,
-            'assignedToCard' => $assignedToCardUsers,
         ]);
     }
 

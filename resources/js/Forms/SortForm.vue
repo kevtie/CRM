@@ -9,7 +9,7 @@ const csrfToken = ref(document.querySelector('meta[name="csrf-token"]').getAttri
 
 <template>
     <div>
-        <form :action="route('sortClient')" method="post">
+        <form :action="route('sortClient', { sortBy: sortBy, sortType: sortType })" method="post">
             <input type="hidden" name="sortClientName" :value="sortBy">
             <input type="hidden" name="sortType" :value="sortType">
             <input type="hidden" name="_token" :value="csrfToken">

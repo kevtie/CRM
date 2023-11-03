@@ -33,17 +33,14 @@ class ScrumController extends Controller
     }
 
     public function delScrumboard(Request $request){
-        // dd(Scrumboard::find($request->scrumId));
         $scrum = Scrumboard::find($request->scrumId);
-        $scrum->user()->detach();
         $cards = Card::where('scrumboard_id', $request->scrumId);
-        $cards->user()->detach();
-        foreach($cards as $card){
-            $card->delete();
+        foreach($cards->get() as $card){
+            $card->user()->detach();
         }
-        
-        
+        $cards->delete();
+        $scrum->user()->detach();
         $scrum->delete();
-        return route('scrumboard');
+        return redirect(route('scrumboard'));
     }
 }

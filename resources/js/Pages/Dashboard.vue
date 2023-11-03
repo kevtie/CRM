@@ -19,8 +19,7 @@ defineProps({
                 <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-6 text-gray-900 dark:text-gray-100">Welcome {{ user.name }}, to the dashboard</div>
                     <div class="p-6 text-gray-900 dark:text-gray-100">Your last activity was at {{ user.last_activity || 'No assigned tasks' }}</div>
-                    <a :href="route('scrumboard')" class="rounded-full p-3 mb-3 bg-indigo-800">scrumboard</a>
-                    <a :href="route('getClients')" class="rounded-full p-3 mb-3 bg-indigo-800">Contact list</a>
+                    
                 </div>
             </div>
         </div>

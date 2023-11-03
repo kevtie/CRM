@@ -28,6 +28,8 @@ Route::get('/', function () {
     ]);
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+// Route::get('/', [DashboardController::class, 'getDashboard'])->middleware(['auth', 'verified'])->name('dashboard');
+
 Route::get('/mail', function () {
     $user = User::first();
     $user->notify(new NoActivity("A new user has visited on your application."));
@@ -42,7 +44,7 @@ Route::middleware(['auth', 'activity.check'])->group(function () {
     Route::get('/clients', [ClientController::class, 'getAllClients'])->name('getClients');
     Route::post('/clients/sorted', [ClientController::class, 'sortClients'])->name('sorted');
     Route::post('/clients/addclient', [ClientController::class, 'addClientOrBusiness'])->middleware('update.activity')->name('addClient');
-    Route::any('/clients/sortByName', [ClientController::class, 'sortClients'])->name('sortClient');
+    Route::any('/clients/sortBy{sortBy}-{sortType}', [ClientController::class, 'sortClients'])->name('sortClient');
     Route::post('/clients/delete', [ClientController::class, 'deleteClientOrBusiness'])->middleware('update.activity')->name('delContact');
     Route::post('/scrumboard/add', [ScrumController::class, 'createScrumboard'])->name('addScrumboard');
     Route::middleware(['check.assigned'])->group(function () {
