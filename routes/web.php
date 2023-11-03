@@ -51,7 +51,8 @@ Route::middleware(['auth', 'activity.check'])->group(function () {
         Route::middleware(['update.activity'])->group(function () {
             Route::post('scrumboard/{scrumId}/addcard', [CardController::class, 'addCardToBoard'])->name('addCard');
             Route::post('/scrumboard/{scrumId}/change', [CardController::class, 'changeCategory'])->name('changeCat');
-            Route::post('/scrumboard/{scrumId}/delete', [CardController::class, 'deleteCard'])->name('delCard');
+            Route::post('/scrumboard/{scrumId}/delcard', [CardController::class, 'deleteCard'])->name('delCard');
+            Route::post('/scrumboard/{scrumId}/delete', [ScrumController::class, 'delScrumboard'])->name('delScrumboard');
         });
     });
 });

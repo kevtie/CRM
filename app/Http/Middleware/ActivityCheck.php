@@ -2,7 +2,6 @@
 
 namespace App\Http\Middleware;
 
-use App\Models\Scrumboard;
 use Closure;
 use Carbon\Carbon;
 use App\Models\User;

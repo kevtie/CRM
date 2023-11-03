@@ -11,7 +11,7 @@ class Card extends Model
     protected $guarded = ['id'];
 
     public function User(){
-      return $this->belongsToMany(User::class);
+      return $this->belongsToMany(User::class)->withPivot('user_id', 'card_id');
     }
 
     public function CardType(){

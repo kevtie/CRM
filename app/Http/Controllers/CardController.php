@@ -21,17 +21,25 @@ class CardController extends Controller
         foreach(Scrumboard::find($request->scrumId)->user as $board){
             $users[] = $board->pivot->user_id;
         }
+        foreach(Card::where('scrumboard_id', $request->scrumId)->get() as $card){
+            foreach($card->user as $assignedToCard){
+                $assignedToCardUsers[] = $assignedToCard->name;
+            }
+        }
+        // dd($assignedToCardUsers);
         $assignedUsers = User::find($users);
         return Inertia::render('Scrumboard', [
             'categories' => $categories,
             'scrumId' => $request->scrumId,
             'scrumboards' => $scrum,
             'assignedUsers' => $assignedUsers,
+            'assignedToCard' => $assignedToCardUsers,
         ]);
     }
 
     public function addCardToBoard(Request $request){
-        if($request->deadline !== null && Carbon::createFromFormat('Y-m-d', $request->deadline)->gt(date('Y-m-d'))){
+        // dd($request->deadline);
+        if($request->deadline !== null && Carbon::createFromFormat('Y-m-d', $request->deadline)->gt(date('Y-m-d')) || $request->deadline === null){
             Card::create([
                 'content' => $request->content,
                 'deadline' => $request->deadline ?? null,
