@@ -1,6 +1,8 @@
 <?php
 
+use App\Models\User;
 use Inertia\Inertia;
+use App\Notifications\NoActivity;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
 use App\Http\Controllers\CardController;
@@ -8,8 +10,7 @@ use App\Http\Controllers\PageController;
 use App\Http\Controllers\ScrumController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ProfileController;
-use App\Models\User;
-use App\Notifications\NoActivity;
+use App\Http\Controllers\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,13 +23,13 @@ use App\Notifications\NoActivity;
 |
 */
 
-Route::get('/', function () {
-    return Inertia::render('Dashboard', [
-        'user' => auth()->user(),
-    ]);
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Route::get('/', function () {
+//     return Inertia::render('Dashboard', [
+//         'user' => auth()->user(),
+//     ]);
+// })->middleware(['auth', 'verified'])->name('dashboard');
 
-// Route::get('/', [DashboardController::class, 'getDashboard'])->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/', [DashboardController::class, 'getDashboard'])->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get('/mail', function () {
     $user = User::first();

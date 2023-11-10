@@ -46,7 +46,7 @@ class User extends Authenticatable
     ];
 
     public function Card(){
-        return $this->belongsToMany(Card::class);
+        return $this->belongsToMany(Card::class)->withPivot('user_id', 'card_id');
     }
 
     public function Scrumboard(){
