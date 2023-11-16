@@ -15,7 +15,7 @@ class Scrumboard extends Model
     }
 
     public function Card(){
-      return $this->belongsTo(Card::class);
+      return $this->hasMany(Card::class);
     }
     
     public function Client(){

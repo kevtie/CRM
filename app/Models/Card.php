@@ -23,6 +23,6 @@ class Card extends Model
     }
 
     public function Scrumboard(){
-        return $this->hasMany(Scrumboard::class);
+        return $this->belongsto(Scrumboard::class);
     }
 }
