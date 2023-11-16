@@ -36,26 +36,39 @@ function toggle(d, d2) {
         </template>
         <div class="flex">
         <div class="w-3/4">
-            <button @click="toggle('list', 'list2')" class="bg-indigo-900 rounded my-2 p-3 text-gray-200 hover:bg-indigo-800 focus:outline-none focus:ring focus:ring-indigo-200">
-                Toggle List
-            </button>
-            <Search />
-            <div class="flex">
-                <SortForm :sortType="'asc'" :sortBy="'name'" class="mr-2"/>
-                <SortForm :sortType="'desc'" :sortBy="'name'" class="mr-2"/>
-                <SortForm :sortType="'asc'" :sortBy="'email'" class="mr-2"/>
-                <SortForm :sortType="'desc'" :sortBy="'email'" class="mr-2"/>
-                <SortForm :sortType="'asc'" :sortBy="'address'" class="mr-2"/>
-                <SortForm :sortType="'desc'" :sortBy="'address'" class="mr-2"/>
+            <div class="h-1/8">
+                
+                <Search />
+                <div class="flex">
+                    <SortForm :sortType="'asc'" :sortBy="'name'" class="mr-2"/>
+                    <SortForm :sortType="'desc'" :sortBy="'name'" class="mr-2"/>
+                    <SortForm :sortType="'asc'" :sortBy="'email'" class="mr-2"/>
+                    <SortForm :sortType="'desc'" :sortBy="'email'" class="mr-2"/>
+                    <SortForm :sortType="'asc'" :sortBy="'address'" class="mr-2"/>
+                    <SortForm :sortType="'desc'" :sortBy="'address'" class="mr-2"/>
+                </div>
             </div>
-            <div id="list" style="display: block;">
-                <div class="font-semibold text-2xl text-gray-800 dark:text-gray-200">Client list</div>
-                <ClientList :clients="clients" />
+            <div class="h-7/8">
+                <div id="list" style="display: block;">
+                    <div class="font-semibold text-2xl text-gray-800 dark:text-gray-200">
+                        Client list 
+                        <button @click="toggle('list', 'list2')" class="bg-indigo-900 rounded my-2 p-3 text-gray-200 hover:bg-indigo-800 focus:outline-none focus:ring focus:ring-indigo-200">
+                            Toggle List
+                        </button>
+                    </div>
+                    <ClientList :clients="clients" />
+                </div>
+                <div id="list2" style="display: none;">
+                    <div class="font-semibold text-2xl text-gray-800 dark:text-gray-200">
+                        Business list
+                        <button @click="toggle('list', 'list2')" class="bg-indigo-900 rounded my-2 p-3 text-gray-200 hover:bg-indigo-800 focus:outline-none focus:ring focus:ring-indigo-200">
+                            Toggle List
+                        </button>
+                    </div>
+                    <BusinessList :businesses="businesses" />
+                </div>
             </div>
-            <div id="list2" style="display: none;">
-                <div class="font-semibold text-2xl text-gray-800 dark:text-gray-200">Business list</div>
-                <BusinessList :businesses="businesses" />
-            </div>
+            
         </div>
         <div class="w-1/4">
             <div class="flex py-12 ">

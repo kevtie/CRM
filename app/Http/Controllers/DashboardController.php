@@ -14,13 +14,14 @@ class DashboardController extends Controller
         $cards = Card::where('deadline', '!=', null);
         $allCardsAmount = $cards->get()->count();
         $cardsPastDeadlineAmount = $cards->where('deadline', '<', Carbon::now())->get()->count();
-        $clearPercentage = ($cardsPastDeadlineAmount / $allCardsAmount) * 100;
-        // dd(auth()->user()->Card);
+        $clearPercentage = 100 - (($cardsPastDeadlineAmount / $allCardsAmount) * 100);
+        $lateScrumboard = Scrumboard::find($cards->where('deadline', '<', Carbon::now())->pluck('scrumboard_id'))->pluck('name');
+        // dd($cardsPastDeadlineAmount);
         return Inertia::render('Dashboard', [
             'deadlines' => $cards->get()->pluck('deadline'),
             'deadlinesCount' => $cards->count(),
             'cardNames' => $cards->get()->pluck('name'),
-            'lateScrumboard' => Scrumboard::find($cards->get()->pluck('id'))->pluck('name'),
+            'lateScrumboardsName' => $lateScrumboard,
             'clearPercentage' => $clearPercentage,
             'user' => auth()->user(),
         ]);
