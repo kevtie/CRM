@@ -8,6 +8,7 @@ use App\Types\CardCategories;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
 
+
 class DashboardController extends Controller
 {
     public function getDashboard(){
@@ -22,7 +23,7 @@ class DashboardController extends Controller
             'cardNames' => $cards->get()->pluck('name'),
             'lateScrumboard' => $lateScrumboard,
             'clearPercentage' => $clearPercentage,
-            'user' => auth()->user(),
+            'user' => auth()->user()/**->only('name', 'last_activity')*/,
         ]);
     }
 }

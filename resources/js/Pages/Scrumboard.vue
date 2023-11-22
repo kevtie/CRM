@@ -75,7 +75,9 @@ function toggle(d) {
                             </div>
                             <div class="z-10 w-48 mb-2 bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600">
                                 <div class="font-semibold text-center">Assigned people</div>
-                                {{ assignedToCard }}
+                                <div v-for="user in card.user" :key="user.id">
+                                    {{ user.name }}
+                                </div>
                             </div>
                             <UpdateForm :card="card" />
                             <AssignUserForm :card="card" :assignedUsers="assignedUsers" />

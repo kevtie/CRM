@@ -17,16 +17,10 @@ class CardController extends Controller
         $scrum = $currentUser->Scrumboard;
         $categories = CardCategory::with(['cards' => function ($query) use ($request){
             $query->where('scrumboard_id', $request->scrumId);
-        }])->orderBy('ordering', 'asc')->get();
+        }, 'cards.User:name'])->orderBy('ordering', 'asc')->get();
         foreach(Scrumboard::find($request->scrumId)->user as $board){
             $users[] = $board->pivot->user_id;
         }
-        foreach(Card::where('scrumboard_id', $request->scrumId)->get() as $card){
-            foreach($card->user as $assignedToCard){
-                $assignedToCardUsers[] = $assignedToCard->name;
-            }
-        }
-        // dd($assignedToCardUsers);
         $assignedUsers = User::find($users);
         return Inertia::render('Scrumboard', [
             'categories' => $categories,
@@ -37,7 +31,6 @@ class CardController extends Controller
     }
 
     public function addCardToBoard(Request $request){
-        // dd($request->deadline);
         if($request->deadline !== null && Carbon::createFromFormat('Y-m-d', $request->deadline)->gt(date('Y-m-d')) || $request->deadline === null){
             Card::create([
                 'content' => $request->content,
@@ -59,12 +52,9 @@ class CardController extends Controller
     }
 
     public function changeCategory(Request $request){
-        
         $currentCard = Card::where('id', $request->cardId)->first();
-        
         $type = $request->typeRadio;
         $category = $request->categoryRadio;
-        
         if($type === null){
             $type = $currentCard->type_id;
         }
